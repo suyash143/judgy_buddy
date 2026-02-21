@@ -200,51 +200,57 @@ User (Web Frontend)
 ## Model Recommendations for Each Characteristic
 
 ### Face Analysis Service
-| Characteristic | Recommended Model | Size | Notes |
-|---------------|-------------------|------|-------|
-| **Face Detection** | RetinaFace or MTCNN | ~5-10MB | Fast, accurate, works well on M-series |
-| **Gender Classification** | FairFace or UTKFace-trained model | ~100MB | Good accuracy, lightweight |
-| **Age Estimation** | FairFace or DEX (Deep EXpectation) | ~100MB | Reasonable accuracy |
-| **Facial Structure** | Face landmarks (dlib or MediaPipe) | ~10MB | 68-point or 478-point landmarks |
-| **Emotion Detection** | FER2013-trained model or HSEmotion | ~50MB | 7 basic emotions |
-| **Attractiveness Rating** | Custom CNN or pre-trained beauty predictor | ~100MB | Subjective, use with caution |
+| Characteristic | Suggested Models | Selected Model ✅ | Size | Notes |
+|---------------|------------------|------------------|------|-------|
+| **Face Detection** | RetinaFace, MTCNN, YuNet | **YuNet (OpenCV)** | ~300KB | Ultra-fast, built into OpenCV, excellent for M4 |
+| **Gender Classification** | FairFace, UTKFace-trained | **FairFace** | ~100MB | Best accuracy, handles multiple attributes |
+| **Age Estimation** | FairFace, DEX | **FairFace** | ~100MB | Same model as gender, efficient |
+| **Facial Structure** | dlib 68-point, MediaPipe Face Mesh | **MediaPipe Face Mesh** | ~10MB | 478 landmarks, very detailed, optimized |
+| **Emotion Detection** | FER2013, HSEmotion, DeepFace | **HSEmotion** | ~50MB | Better accuracy than FER2013, 8 emotions |
+| **Attractiveness Rating** | SCUT-FBP, R2-ResNeXt | **SCUT-FBP5500** | ~100MB | Research-backed, Asian + Caucasian trained |
 
 ### Body Analysis Service
-| Characteristic | Recommended Model | Size | Notes |
-|---------------|-------------------|------|-------|
-| **Pose Detection** | MediaPipe Pose or OpenPose | ~30MB | Real-time capable on M4 |
-| **Body Type** | Custom classifier on pose keypoints | ~50MB | Can build on pose data |
-| **Fashion/Dressing** | Fashion-MNIST or DeepFashion model | ~200MB | Clothing classification |
+| Characteristic | Suggested Models | Selected Model ✅ | Size | Notes |
+|---------------|------------------|------------------|------|-------|
+| **Pose Detection** | MediaPipe Pose, OpenPose, MoveNet | **MediaPipe Pose** | ~30MB | 33 keypoints, real-time on M4, Google-maintained |
+| **Body Type** | Custom classifier, BodyNet | **Custom CNN on Pose** | ~50MB | Build on MediaPipe keypoints + ratios |
+| **Fashion/Dressing** | DeepFashion, Fashion++, ClothingNet | **DeepFashion2** | ~200MB | Multi-attribute clothing recognition |
 
 ### Demographics Service
-| Characteristic | Recommended Model | Size | Notes |
-|---------------|-------------------|------|-------|
-| **Race/Ethnicity** | FairFace | ~100MB | Handles 7 race categories |
-| **Skin Tone** | Color analysis (OpenCV-based) | N/A | Algorithm-based, no model needed |
+| Characteristic | Suggested Models | Selected Model ✅ | Size | Notes |
+|---------------|------------------|------------------|------|-------|
+| **Race/Ethnicity** | FairFace, DeepFace | **FairFace** | ~100MB | 7 categories, same model as age/gender |
+| **Skin Tone** | OpenCV LAB color, Monk Skin Tone Scale | **OpenCV LAB + ITA°** | N/A | Algorithm-based, Individual Typology Angle |
 
 ### Object & Scene Detection Service
-| Characteristic | Recommended Model | Size | Notes |
-|---------------|-------------------|------|-------|
-| **Object Detection** | YOLOv8-nano or YOLOv5s | ~6-15MB | Fast, 80 object classes |
-| **Scene Classification** | Places365-CNN (ResNet18) | ~100MB | 365 scene categories |
-| **Background Analysis** | U2-Net (background segmentation) | ~176MB | Separate foreground/background |
+| Characteristic | Suggested Models | Selected Model ✅ | Size | Notes |
+|---------------|------------------|------------------|------|-------|
+| **Object Detection** | YOLOv8-nano, YOLOv10-nano, YOLOv5s | **YOLOv8-nano** | ~6MB | 80 COCO classes, fastest, Ultralytics maintained |
+| **Scene Classification** | Places365-ResNet18, MobileNetV3 | **Places365-ResNet18** | ~100MB | 365 scene categories, good accuracy |
+| **Background Analysis** | U2-Net, MODNet, RVM | **MODNet** | ~25MB | Lighter than U2-Net, real-time capable |
 
 ### Quality & Aesthetics Service
-| Characteristic | Recommended Model | Size | Notes |
-|---------------|-------------------|------|-------|
-| **Image Quality** | BRISQUE or NIMA | ~50MB | No-reference quality assessment |
-| **Composition** | Rule-based (rule of thirds, etc.) | N/A | Algorithm-based |
-| **Aesthetic Rating** | NIMA (Neural Image Assessment) | ~100MB | Trained on AVA dataset |
+| Characteristic | Suggested Models | Selected Model ✅ | Size | Notes |
+|---------------|------------------|------------------|------|-------|
+| **Image Quality** | BRISQUE, NIMA-Quality, MUSIQ | **BRISQUE (OpenCV)** | Built-in | No-reference, fast, no neural network needed |
+| **Composition** | Rule of thirds, Golden ratio | **Rule-based Algorithm** | N/A | Detect faces/objects position, symmetry |
+| **Aesthetic Rating** | NIMA-Aesthetic, AVA-MLSP | **NIMA-MobileNet** | ~17MB | Lightweight version, AVA dataset trained |
+| **Lighting Quality** | Custom analysis | **OpenCV Histogram** | N/A | Brightness, contrast, exposure analysis |
 
 ### LLM Inferencer Service
-| Model | Size (Quantized) | Notes |
-|-------|------------------|-------|
-| **LLaMA 3.2 3B** | ~2GB (4-bit) | Best balance for M4 Pro, good at creative text |
-| **Phi-3 Mini (3.8B)** | ~2.3GB (4-bit) | Microsoft's efficient model, good reasoning |
-| **Mistral 7B** | ~4GB (4-bit) | More capable but slower on M4 |
-| **Gemma 2B** | ~1.5GB (4-bit) | Lightweight, Google's model |
+| Model | Size (Quantized) | Selected Model ✅ | Inference Library | Notes |
+|-------|------------------|------------------|-------------------|-------|
+| **LLaMA 3.2 3B Instruct** | ~2GB (4-bit) | ✅ **PRIMARY** | **mlx-lm** | Best for M4 Pro, creative, Apple Silicon optimized |
+| **Phi-3.5 Mini (3.8B)** | ~2.3GB (4-bit) | **BACKUP** | mlx-lm / llama.cpp | Microsoft's model, excellent reasoning |
+| **Qwen2.5 3B Instruct** | ~2GB (4-bit) | **ALTERNATIVE** | mlx-lm | Alibaba's model, multilingual, creative |
+| **Mistral 7B Instruct** | ~4GB (4-bit) | Future upgrade | mlx-lm | More capable but slower |
+| **Gemma 2B** | ~1.5GB (4-bit) | Too small | mlx-lm | Lightweight but less creative |
 
-**Recommendation**: Start with **LLaMA 3.2 3B** or **Phi-3 Mini** using `llama.cpp` or `mlx-lm` for Apple Silicon optimization.
+**Selected**: **LLaMA 3.2 3B Instruct** with **mlx-lm** (Apple's MLX framework for M-series chips)
+- Optimized for Apple Silicon with unified memory
+- Fast inference (~20-30 tokens/sec on M4 Pro)
+- Excellent at creative, witty text generation
+- 4-bit quantization keeps memory under 2GB
 
 ---
 
@@ -275,12 +281,51 @@ User (Web Frontend)
 
 ---
 
+---
+
+## 📦 Finalized Model Stack Summary
+
+### Core Models Selected
+1. **YuNet** - Face Detection (300KB)
+2. **FairFace** - Gender, Age, Race/Ethnicity (100MB) - *Single model for 3 tasks!*
+3. **MediaPipe Face Mesh** - Facial Structure (10MB, 478 landmarks)
+4. **HSEmotion** - Emotion Detection (50MB, 8 emotions)
+5. **SCUT-FBP5500** - Attractiveness Rating (100MB)
+6. **MediaPipe Pose** - Body Pose Detection (30MB, 33 keypoints)
+7. **Custom CNN** - Body Type Classification (50MB, built on pose data)
+8. **DeepFashion2** - Fashion/Dressing Analysis (200MB)
+9. **OpenCV LAB + ITA°** - Skin Tone Analysis (algorithm-based)
+10. **YOLOv8-nano** - Object Detection (6MB, 80 classes)
+11. **Places365-ResNet18** - Scene Classification (100MB, 365 scenes)
+12. **MODNet** - Background Segmentation (25MB)
+13. **BRISQUE** - Image Quality (OpenCV built-in)
+14. **NIMA-MobileNet** - Aesthetic Rating (17MB)
+15. **Rule-based Algorithms** - Composition & Lighting (no model)
+16. **LLaMA 3.2 3B Instruct** - Witty Roast Generation (2GB quantized, via mlx-lm)
+
+### Total Model Size
+- **Vision Models**: ~688MB (excluding algorithms)
+- **LLM**: ~2GB (4-bit quantized)
+- **Total**: ~2.7GB (easily fits in M4 Pro memory)
+
+### Key Libraries & Frameworks
+- **mlx-lm** - LLM inference on Apple Silicon
+- **OpenCV** - Image processing, YuNet, BRISQUE
+- **MediaPipe** - Face mesh, pose detection
+- **Ultralytics** - YOLOv8
+- **PyTorch** - Model inference for custom models
+- **FastAPI** - All service APIs
+- **aiohttp** - Async HTTP for inter-service communication
+
+---
+
 ## Notes
 - All services will run locally on MacBook M4 Pro
 - Focus on modularity and scalability
 - Each service should be independently deployable
 - API contracts need to be well-defined before implementation
 - Models should be optimized for Apple Silicon (use MLX, ONNX, or Core ML where possible)
-- Parallel processing is key for acceptable response times
+- Parallel processing is key for acceptable response times (~5-15 seconds target)
 - Consider model caching and warm-up strategies
+- FairFace efficiency: Single model handles gender, age, AND race detection!
 
