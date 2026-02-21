@@ -1,4 +1,4 @@
-# Judgy Buddy - Witty AI Judge 🤖😏
+# Judgy Buddy - We the Judger
 
 A microservice-based application that analyzes uploaded images and generates witty, humorous roasts using AI.
 
