@@ -79,7 +79,7 @@ class LLMManager:
                 self.tokenizer,
                 prompt=prompt,
                 max_tokens=max_tokens,
-                temp=temperature,
+                temperature=temperature,
                 top_p=top_p,
                 verbose=False
             )
@@ -100,14 +100,14 @@ class LLMManager:
                 "your room looks like a tornado hit a thrift store, and honestly? Your face says 'confident' "
                 "but everything else screams 'help me.' That 7.5 attractiveness score must've been graded "
                 "on a VERY generous curve. But hey, at least you had the audacity to take this photo - "
-                "that takes guts, or maybe just a complete lack of self-awareness. Either way, iconic. 💀"
+                "that takes guts, or maybe just a complete lack of self-awareness. Either way, iconic."
             )
         elif "mild" in prompt.lower():
             return (
                 "Well, well, well... looks like someone tried their best today! "
                 "That casual outfit says 'I woke up like this' but your messy bedroom "
                 "background says 'I actually woke up like this.' At least you're consistent! "
-                "7.5/10 for authenticity, though. 😊"
+                "7.5/10 for authenticity, though."
             )
         else:  # medium
             return (
@@ -115,7 +115,7 @@ class LLMManager:
                 "I see you went for the 'athletic casual' look - very brave considering that "
                 "harsh lighting is exposing EVERYTHING. Your face says 'happy' but that "
                 "messy room says 'gave up 3 weeks ago.' But hey, at least you're a solid 7.5 "
-                "in the looks department, so you've got that going for you! 😏"
+                "in the looks department, so you've got that going for you!"
             )
     
     async def unload_model(self):

@@ -35,14 +35,12 @@ class ImageProcessingOrchestrator:
         start_time = time.time()
         
         # Create tasks for all services
-        # For Option 2, we'll only call Face Analysis initially
-        # Later we'll uncomment the other services
         tasks = {
             "face_analysis": self._call_face_analysis(image_base64, request_id),
-            # "body_analysis": self._call_body_analysis(image_base64, request_id),
-            # "demographics": self._call_demographics(image_base64, request_id),
-            # "object_scene": self._call_object_scene(image_base64, request_id),
-            # "quality_aesthetics": self._call_quality_aesthetics(image_base64, request_id),
+            "body_analysis": self._call_body_analysis(image_base64, request_id),
+            "demographics": self._call_demographics(image_base64, request_id),
+            "object_scene": self._call_object_scene(image_base64, request_id),
+            "quality_aesthetics": self._call_quality_aesthetics(image_base64, request_id),
         }
         
         # Execute all tasks in parallel with semaphore for rate limiting
@@ -88,31 +86,31 @@ class ImageProcessingOrchestrator:
     async def _call_body_analysis(self, image_base64: str, request_id: str) -> Optional[Dict[str, Any]]:
         """Call Body Analysis service."""
         return await self._call_service(
-            url=f"{self.body_analysis_url}/api/v1/analyze",
+            url=f"{self.body_analysis_url}/analyze",
             payload={"image_base64": image_base64, "request_id": request_id},
             service_name="body_analysis"
         )
-    
+
     async def _call_demographics(self, image_base64: str, request_id: str) -> Optional[Dict[str, Any]]:
         """Call Demographics service."""
         return await self._call_service(
-            url=f"{self.demographics_url}/api/v1/analyze",
+            url=f"{self.demographics_url}/analyze",
             payload={"image_base64": image_base64, "request_id": request_id},
             service_name="demographics"
         )
-    
+
     async def _call_object_scene(self, image_base64: str, request_id: str) -> Optional[Dict[str, Any]]:
         """Call Object & Scene Detection service."""
         return await self._call_service(
-            url=f"{self.object_scene_url}/api/v1/analyze",
+            url=f"{self.object_scene_url}/analyze",
             payload={"image_base64": image_base64, "request_id": request_id},
             service_name="object_scene"
         )
-    
+
     async def _call_quality_aesthetics(self, image_base64: str, request_id: str) -> Optional[Dict[str, Any]]:
         """Call Quality & Aesthetics service."""
         return await self._call_service(
-            url=f"{self.quality_aesthetics_url}/api/v1/analyze",
+            url=f"{self.quality_aesthetics_url}/analyze",
             payload={"image_base64": image_base64, "request_id": request_id},
             service_name="quality_aesthetics"
         )
@@ -151,11 +149,10 @@ class ImageProcessingOrchestrator:
         """Check health of all downstream services."""
         services = {
             "face_analysis": f"{self.face_analysis_url}/health",
-            # Uncomment when implementing other services
-            # "body_analysis": f"{self.body_analysis_url}/health",
-            # "demographics": f"{self.demographics_url}/health",
-            # "object_scene": f"{self.object_scene_url}/health",
-            # "quality_aesthetics": f"{self.quality_aesthetics_url}/health",
+            "body_analysis": f"{self.body_analysis_url}/health",
+            "demographics": f"{self.demographics_url}/health",
+            "object_scene": f"{self.object_scene_url}/health",
+            "quality_aesthetics": f"{self.quality_aesthetics_url}/health",
         }
         
         health_status = {}
