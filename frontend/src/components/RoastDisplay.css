@@ -1,0 +1,174 @@
+.roast-display {
+  width: 100%;
+  max-width: 700px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.roast-card {
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.roast-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding: 1.5rem;
+}
+
+.roast-header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #212529;
+  margin: 0;
+}
+
+.roast-content {
+  padding: 2rem;
+  background-color: #fff;
+}
+
+.roast-text {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #212529;
+  margin: 0;
+}
+
+.features-section {
+  padding: 1.5rem;
+  border-top: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+}
+
+.features-section h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #495057;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.feature-card {
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.feature-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: #f8f9fa;
+  border-radius: 0.25rem;
+}
+
+.feature-label {
+  font-weight: 500;
+  color: #6c757d;
+  font-size: 0.875rem;
+}
+
+.feature-value {
+  font-weight: 600;
+  color: #212529;
+  font-size: 0.875rem;
+}
+
+.stats {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.stat-label {
+  font-weight: 500;
+  color: #6c757d;
+  font-size: 0.8125rem;
+}
+
+.stat-value {
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.8125rem;
+}
+
+.stat-id {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+  font-size: 0.75rem;
+  color: #adb5bd;
+}
+
+.reset-btn {
+  width: 100%;
+  padding: 0.875rem;
+  font-size: 0.9375rem;
+}
+
+@media (max-width: 768px) {
+  .roast-header {
+    padding: 1rem;
+  }
+
+  .roast-header h2 {
+    font-size: 1.125rem;
+  }
+
+  .roast-content {
+    padding: 1.5rem;
+  }
+
+  .roast-text {
+    font-size: 1rem;
+  }
+
+  .features-section {
+    padding: 1rem;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    padding: 1rem;
+  }
+}
+
