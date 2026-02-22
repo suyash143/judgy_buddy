@@ -72,20 +72,25 @@ class LLMManager:
             if self.model is None or self.tokenizer is None:
                 logger.warning("Using placeholder generation")
                 return self._placeholder_generate(prompt)
-            
+
+            # Import make_sampler to create a sampler with temperature settings
+            from mlx_lm.sample_utils import make_sampler
+
+            # Create sampler with temperature and top_p
+            sampler = make_sampler(temp=temperature, top_p=top_p)
+
             # Generate using mlx_lm
             response = self.generate_fn(
                 self.model,
                 self.tokenizer,
                 prompt=prompt,
                 max_tokens=max_tokens,
-                temperature=temperature,
-                top_p=top_p,
+                sampler=sampler,
                 verbose=False
             )
-            
+
             return response
-            
+
         except Exception as e:
             logger.error(f"Error generating text: {e}")
             # Fallback to placeholder

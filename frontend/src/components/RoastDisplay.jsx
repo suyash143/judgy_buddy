@@ -32,12 +32,6 @@ const RoastDisplay = ({ data, onReset }) => {
                       <span className="feature-value">{features.face_analysis.gender}</span>
                     </div>
                   )}
-                  {features.face_analysis.age && (
-                    <div className="feature-item">
-                      <span className="feature-label">Age:</span>
-                      <span className="feature-value">~{features.face_analysis.age}</span>
-                    </div>
-                  )}
                   {features.face_analysis.emotion && (
                     <div className="feature-item">
                       <span className="feature-label">Emotion:</span>
@@ -54,94 +48,11 @@ const RoastDisplay = ({ data, onReset }) => {
               </div>
             )}
 
-            {features.body_analysis && (
+            {features.vlm_scene_analysis && (
               <div className="feature-card">
-                <h4>Body Analysis</h4>
-                <div className="feature-grid">
-                  {features.body_analysis.pose && (
-                    <div className="feature-item">
-                      <span className="feature-label">Pose:</span>
-                      <span className="feature-value">{features.body_analysis.pose}</span>
-                    </div>
-                  )}
-                  {features.body_analysis.body_type && (
-                    <div className="feature-item">
-                      <span className="feature-label">Body Type:</span>
-                      <span className="feature-value">{features.body_analysis.body_type}</span>
-                    </div>
-                  )}
-                  {features.body_analysis.clothing_style && (
-                    <div className="feature-item">
-                      <span className="feature-label">Style:</span>
-                      <span className="feature-value">{features.body_analysis.clothing_style}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {features.demographics && (
-              <div className="feature-card">
-                <h4>Demographics</h4>
-                <div className="feature-grid">
-                  {features.demographics.race && (
-                    <div className="feature-item">
-                      <span className="feature-label">Race:</span>
-                      <span className="feature-value">{features.demographics.race}</span>
-                    </div>
-                  )}
-                  {features.demographics.skin_tone && (
-                    <div className="feature-item">
-                      <span className="feature-label">Skin Tone:</span>
-                      <span className="feature-value">{features.demographics.skin_tone}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {features.object_scene && (
-              <div className="feature-card">
-                <h4>Scene & Objects</h4>
-                <div className="feature-grid">
-                  {features.object_scene.scene_type && (
-                    <div className="feature-item">
-                      <span className="feature-label">Scene:</span>
-                      <span className="feature-value">{features.object_scene.scene_type}</span>
-                    </div>
-                  )}
-                  {features.object_scene.background_type && (
-                    <div className="feature-item">
-                      <span className="feature-label">Background:</span>
-                      <span className="feature-value">{features.object_scene.background_type}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {features.quality_aesthetics && (
-              <div className="feature-card">
-                <h4>Quality & Aesthetics</h4>
-                <div className="feature-grid">
-                  {features.quality_aesthetics.quality_score && (
-                    <div className="feature-item">
-                      <span className="feature-label">Quality:</span>
-                      <span className="feature-value">{features.quality_aesthetics.quality_score}/10</span>
-                    </div>
-                  )}
-                  {features.quality_aesthetics.aesthetic_score && (
-                    <div className="feature-item">
-                      <span className="feature-label">Aesthetics:</span>
-                      <span className="feature-value">{features.quality_aesthetics.aesthetic_score}/10</span>
-                    </div>
-                  )}
-                  {features.quality_aesthetics.lighting_quality && (
-                    <div className="feature-item">
-                      <span className="feature-label">Lighting:</span>
-                      <span className="feature-value">{features.quality_aesthetics.lighting_quality}</span>
-                    </div>
-                  )}
+                <h4>Scene Analysis</h4>
+                <div className="scene-description">
+                  <p>{features.vlm_scene_analysis.scene_description}</p>
                 </div>
               </div>
             )}

@@ -105,6 +105,18 @@
   font-size: 0.875rem;
 }
 
+.scene-description {
+  margin-top: 0.5rem;
+}
+
+.scene-description p {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: #495057;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
 .stats {
   margin-top: 1rem;
   padding-top: 1rem;

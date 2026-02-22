@@ -56,8 +56,6 @@ class FaceAnalysisResult(BaseModel):
     faces: List[FaceDetection] = Field(default_factory=list)
     gender: Optional[Gender] = None
     gender_confidence: Optional[float] = Field(None, ge=0.0, le=1.0)
-    age: Optional[int] = Field(None, ge=0, le=120)
-    age_range: Optional[tuple[int, int]] = None
     race: Optional[Race] = None
     race_confidence: Optional[float] = Field(None, ge=0.0, le=1.0)
     emotion: Optional[Emotion] = None
@@ -118,10 +116,24 @@ class QualityAestheticsResult(BaseModel):
     has_filters: Optional[bool] = None
 
 
+class VLMSceneAnalysisRequest(BaseModel):
+    """Request for VLM scene analysis."""
+    image_base64: str
+    request_id: str
+
+
+class VLMSceneAnalysisResponse(BaseModel):
+    """Response from VLM scene analysis."""
+    scene_description: str = Field(..., description="Comprehensive scene description from VLM")
+    processing_time_ms: Optional[float] = None
+
+
 class AggregatedImageFeatures(BaseModel):
     model_config = ConfigDict(frozen=True)
-    
+
     face_analysis: Optional[FaceAnalysisResult] = None
+    vlm_scene_analysis: Optional[str] = Field(None, description="VLM comprehensive scene description")
+    # Deprecated fields (will be removed after VLM integration)
     body_analysis: Optional[BodyAnalysisResult] = None
     demographics: Optional[DemographicsResult] = None
     object_scene: Optional[ObjectSceneResult] = None

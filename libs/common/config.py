@@ -57,17 +57,20 @@ class MainOrchestratorConfig(ServiceConfig):
 
 class ImageProcessingOrchestratorConfig(ServiceConfig):
     """Configuration for Image Processing Orchestrator service."""
-    
+
     service_name: str = "image-processing-orchestrator"
     port: int = 8001
-    
+
     # Service URLs
     face_analysis_url: str = "http://localhost:8002"
+    vlm_scene_analysis_url: str = "http://localhost:8008"
+
+    # Deprecated service URLs (will be removed after VLM integration)
     body_analysis_url: str = "http://localhost:8003"
     demographics_url: str = "http://localhost:8004"
     object_scene_url: str = "http://localhost:8005"
     quality_aesthetics_url: str = "http://localhost:8006"
-    
+
     # Parallel Processing
     max_concurrent_requests: int = 5
     service_timeout: int = 30

@@ -46,9 +46,9 @@ class FaceAnalyzer:
             # Get the primary face (largest or first detected)
             primary_face = faces[0]
             face_crop = self._crop_face(image, primary_face["bbox"])
-            
-            # 2. Analyze gender, age, race with FairFace
-            gender_age_race = await self._analyze_fairface(face_crop)
+
+            # 2. Analyze gender and race with FairFace
+            gender_race = await self._analyze_fairface(face_crop)
             
             # 3. Analyze facial structure with MediaPipe
             facial_structure = await self._analyze_facial_structure(face_crop)
@@ -64,7 +64,7 @@ class FaceAnalyzer:
             return {
                 "face_count": len(faces),
                 "faces": faces,
-                **gender_age_race,
+                **gender_race,
                 **emotion,
                 **attractiveness,
                 **facial_structure,
@@ -136,14 +136,12 @@ class FaceAnalyzer:
         return image[y1:y2, x1:x2]
     
     async def _analyze_fairface(self, face_crop: np.ndarray) -> Dict[str, Any]:
-        """Analyze gender, age, and race using FairFace."""
+        """Analyze gender and race using FairFace."""
         # Placeholder implementation
         # TODO: Implement actual FairFace inference
         return {
             "gender": "male",
             "gender_confidence": 0.85,
-            "age": 28,
-            "age_range": [25, 32],
             "race": "asian",
             "race_confidence": 0.80
         }

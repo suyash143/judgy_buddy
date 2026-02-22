@@ -124,8 +124,6 @@ Health check endpoint (same format as above)
   ],
   "gender": "male",
   "gender_confidence": 0.92,
-  "age": 28,
-  "age_range": [25, 32],
   "race": "asian",
   "race_confidence": 0.87,
   "emotion": "happy",
